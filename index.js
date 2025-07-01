@@ -3,9 +3,15 @@ const cors = require('cors');
 const axios = require('axios');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
+
+app.options('*', cors()); // pré-resposta para requisições OPTIONS
 
 // Carrega base de dados de CEP via URL externa
 let cepData = [];
@@ -24,7 +30,6 @@ const carregarCeps = async () => {
 
 carregarCeps();
 
-// Rota para buscar CEP
 app.get('/cep/:cep', (req, res) => {
   const cep = req.params.cep.replace(/\D/g, '');
 
