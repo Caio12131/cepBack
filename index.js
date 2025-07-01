@@ -31,7 +31,8 @@ const carregarCeps = async () => {
 carregarCeps();
 
 app.get('/cep/:cep', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // força o cabeçalho CORS
+  // Apenas para garantir que o cabeçalho estará em toda resposta
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   const cep = req.params.cep.replace(/\D/g, '');
 
