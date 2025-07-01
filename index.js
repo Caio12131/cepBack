@@ -31,6 +31,8 @@ const carregarCeps = async () => {
 carregarCeps();
 
 app.get('/cep/:cep', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // força o cabeçalho CORS
+
   const cep = req.params.cep.replace(/\D/g, '');
 
   if (cep.length !== 8) {
@@ -45,6 +47,7 @@ app.get('/cep/:cep', (req, res) => {
     res.status(404).json({ error: 'CEP não encontrado' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
